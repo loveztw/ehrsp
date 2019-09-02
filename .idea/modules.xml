@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ehrsp.iml" filepath="$PROJECT_DIR$/ehrsp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ehrsp-common/ehrsp-common.iml" filepath="$PROJECT_DIR$/ehrsp-common/ehrsp-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ehrsp-fe-api/ehrsp-fe-api.iml" filepath="$PROJECT_DIR$/ehrsp-fe-api/ehrsp-fe-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ehrsp-mapper/ehrsp-mapper.iml" filepath="$PROJECT_DIR$/ehrsp-mapper/ehrsp-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ehrsp-pojo/ehrsp-pojo.iml" filepath="$PROJECT_DIR$/ehrsp-pojo/ehrsp-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ehrsp-service/ehrsp-service.iml" filepath="$PROJECT_DIR$/ehrsp-service/ehrsp-service.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ehrsp-mapper" />
+        <module name="ehrsp-common" />
+        <module name="ehrsp-pojo" />
+        <module name="ehrsp-fe-api" />
+        <module name="ehrsp-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ehrsp" target="1.8" />
+      <module name="ehrsp-common" target="1.8" />
+      <module name="ehrsp-fe-api" target="1.8" />
+      <module name="ehrsp-mapper" target="1.8" />
+      <module name="ehrsp-pojo" target="1.8" />
+      <module name="ehrsp-service" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ehrsp" options="-parameters" />
+      <module name="ehrsp-common" options="-parameters" />
+      <module name="ehrsp-fe-api" options="-parameters" />
+      <module name="ehrsp-mapper" options="-parameters" />
+      <module name="ehrsp-pojo" options="-parameters" />
+      <module name="ehrsp-service" options="-parameters" />
+    </option>
+  </component>
+</project>
