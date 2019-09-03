@@ -1,2 +1,7 @@
 cn\comelo\utils\MyMapper.class
+cn\comelo\sms\SmsService.class
 cn\comelo\utils\JsonResponse.class
+cn\comelo\exception\MyException.class
+cn\comelo\sms\aliyun\SendSmsResponseAliyunBean.class
+cn\comelo\sms\aliyun\SmsAliyunServiceImpl.class
+cn\comelo\sms\SmsServiceFactory.class

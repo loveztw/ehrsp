@@ -1,10 +1,12 @@
 package cn.comelo.sms;
 
+import cn.comelo.exception.MyException;
+
 public interface SmsService {
 
-    //短信服务初期化
+    //初始化
     public void init();
 
     //发送验证码
-    public String sendVerifyCode(String tel);
+    public String sendVerifyCode(String tel) throws MyException;
 }

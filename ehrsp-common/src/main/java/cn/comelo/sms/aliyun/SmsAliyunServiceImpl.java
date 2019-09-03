@@ -1,13 +1,12 @@
 package cn.comelo.sms.aliyun;
 
+import cn.comelo.exception.MyException;
 import cn.comelo.sms.SmsService;
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.CommonRequest;
 import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
-import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,17 +21,17 @@ public class SmsAliyunServiceImpl implements SmsService {
     @Value("${sms.templateCode}")
     private String smsTemplateCode;
 
-    @Value("${sms.accesskey}")
-    private String smsAccesskey;
-
-    @Value("${sms.secret}")
-    private String smsSecret;
+    @Value("${sms.domain}")
+    private String smsDomain;
 
     @Value("${sms.regionid}")
     private String smsRegionid;
 
-    @Value("${sms.domain}")
-    private String smsDomain;
+    @Value("${sms.accesskey}")
+    String smsAccesskey;
+
+    @Value("${sms.secret}")
+    String smsSecret;
 
     private IAcsClient client;
 
@@ -43,7 +42,7 @@ public class SmsAliyunServiceImpl implements SmsService {
     }
 
     @Override
-    public String sendVerifyCode(String tel) {
+    public String sendVerifyCode(String tel) throws MyException {
         CommonRequest request = new CommonRequest();
         request.setMethod(MethodType.POST);
         request.setDomain(smsDomain);
@@ -58,16 +57,16 @@ public class SmsAliyunServiceImpl implements SmsService {
         int randNum = ra.nextInt(100000)+1;
         String randNumStr = String.format("%06d", randNum);
         request.putQueryParameter("TemplateParam", "{code:" + randNumStr + "}");
+        CommonResponse response = null;
         try {
-            CommonResponse response = client.getCommonResponse(request);
-            //System.out.println("=======" + response.getData());
-            SendSmsResponseAliyunBean resBean = JSON.parseObject(response.getData(), SendSmsResponseAliyunBean.class);
-            if (!resBean.getCode().equals("OK")){
-                return null;
-            }
-            return randNumStr;
+            response = client.getCommonResponse(request);
         } catch (Exception e) {
-            return null;
+            throw new MyException("SMS Send failed. errMsg=" + e.getMessage());
         }
+        SendSmsResponseAliyunBean resBean = JSON.parseObject(response.getData(), SendSmsResponseAliyunBean.class);
+        if (!resBean.getCode().equals("OK")){
+            throw new MyException("Receive bad SMS response: code=" + resBean.getCode() + ", errMsg=" + resBean.getMessage());
+        }
+        return randNumStr;
     }
 }

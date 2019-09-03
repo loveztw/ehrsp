@@ -3,3 +3,4 @@ cn\comelo\datasource\SecondDatasourceConfig.class
 cn\comelo\datasource\PrimaryDatasourceConfig.class
 cn\comelo\controller\TestController.class
 cn\comelo\Swagger2.class
+cn\comelo\ApplicationRunnerImpl.class
