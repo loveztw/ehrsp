@@ -10,9 +10,13 @@ import com.aliyuncs.IAcsClient;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Random;
 
+@Service
 public class SmsAliyunServiceImpl implements SmsService {
 
     @Value("${sms.signName}")
@@ -36,6 +40,7 @@ public class SmsAliyunServiceImpl implements SmsService {
     private IAcsClient client;
 
     @Override
+    @PostConstruct
     public void init() {
         DefaultProfile profile = DefaultProfile.getProfile(smsRegionid, smsAccesskey, smsSecret);
         client = new DefaultAcsClient(profile);

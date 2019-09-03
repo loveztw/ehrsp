@@ -6,7 +6,6 @@ import cn.comelo.pojo.EhrAdmin;
 import cn.comelo.pojo.QsMembers;
 import cn.comelo.qscms.service.QsMembersService;
 import cn.comelo.sms.SmsService;
-import cn.comelo.sms.SmsServiceFactory;
 import cn.comelo.utils.JsonResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,6 +25,9 @@ public class TestController {
 
     @Autowired
     private EhrAdminService ehrAdminService;
+
+    @Autowired
+    private SmsService smsService;
 
     @ApiOperation("更新用户")
     @ApiImplicitParam(name = "qsMembers", value = "单个用户信息", dataType = "QsMembers")
@@ -83,7 +85,7 @@ public class TestController {
             return JsonResponse.errorMsg("tel is null");
         }
 
-        SmsService smsService = SmsServiceFactory.getInstance(SmsServiceFactory.SMS_SERVICE_TYPE_ALIYUN);
+        //SmsService smsService = SmsServiceFactory.getInstance(SmsServiceFactory.SMS_SERVICE_TYPE_ALIYUN);
         smsService.sendVerifyCode(telNumber);
 
         return JsonResponse.ok();
