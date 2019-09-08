@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, MybatisAutoConfiguration.class})
 @SpringBootApplication
 //@MapperScan(basePackages={"cn.comelo.ehrsp", "cn.comelo.qscms"})
-@ComponentScan(basePackages= {"cn.comelo"})
+@ComponentScan(basePackages= {"cn.comelo", "org.n3r.idworker"})
 public class Application {
 
     public static void main(String[] args) {
