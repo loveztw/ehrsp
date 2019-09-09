@@ -20,7 +20,7 @@ public class JsonResponse {
 
     // 响应中的数据
     private Object data;
-    
+
     private String ok;	// 不使用
 
     

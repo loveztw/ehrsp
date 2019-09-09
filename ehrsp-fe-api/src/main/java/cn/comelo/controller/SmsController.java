@@ -6,6 +6,7 @@ import cn.comelo.exception.MyException;
 import cn.comelo.other.service.SmsService;
 import cn.comelo.pojo.CmlSmsVerifyCode;
 import cn.comelo.pojo.CmlUser;
+import cn.comelo.response.SendSmsResponseData;
 import cn.comelo.utils.JsonResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -43,7 +44,10 @@ public class SmsController {
         try {
             verifyCode = smsService.sendVerifyCode(telNumber);
         } catch (MyException e) {
-            return JsonResponse.errorMsg("Failed to send verify code.");
+            //return JsonResponse.errorMsg("Failed to send verify code.");
+            SendSmsResponseData sendSmsResponseData = new SendSmsResponseData();
+            sendSmsResponseData.setCode(e.getCode());
+            return JsonResponse.errorMap(sendSmsResponseData);
         }
 
         CmlSmsVerifyCode cmlSmsVerifyCode = new CmlSmsVerifyCode();
