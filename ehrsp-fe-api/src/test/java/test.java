@@ -1,5 +1,5 @@
 import cn.comelo.Application;
-import cn.comelo.sms.aliyun.SendSmsResponseAliyunBean;
+import cn.comelo.pojo.sms.SendSmsResponseAliyunBean;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,5 +50,6 @@ public class SmsController {
         cmlSmsVerifyCode.setMobile(telNumber);
         cmlSmsVerifyCode.setVerifyCode(verifyCode);
         smsVerifyCodeService.insertVerifyCode(cmlSmsVerifyCode);
+        return JsonResponse.ok();
     }
 }

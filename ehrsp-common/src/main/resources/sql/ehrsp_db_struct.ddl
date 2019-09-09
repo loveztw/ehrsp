@@ -1,3 +1,4 @@
+DROP TABLE  IF EXISTS `ehrsp`.`cml_user`;
 CREATE TABLE `ehrsp`.`cml_user` (
   `userid` VARCHAR(64) NOT NULL COMMENT '用户id',
   `mobile` VARCHAR(16) NOT NULL COMMENT '电话号码',
@@ -9,11 +10,12 @@ CREATE TABLE `ehrsp`.`cml_user` (
   `update_time` DATETIME NULL COMMENT '记录最近更新时间',
   `create_time` DATETIME NULL COMMENT '记录创建时间',
   PRIMARY KEY (`userid`),
-  UNIQUE INDEX `mobile_UNIQUE` (`mobile` ASC) VISIBLE),
+  UNIQUE INDEX `mobile_UNIQUE` (`mobile` ASC) VISIBLE)
   DEFAULT CHARACTER SET = utf8;
 
+DROP TABLE  IF EXISTS `ehrsp`.`cml_sms_verify_code`;
 CREATE TABLE `ehrsp`.`cml_sms_verify_code` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `userid` VARCHAR(64) COMMENT '用户id',
   `mobile` VARCHAR(16) COMMENT '电话号码',
   `verify_code` CHAR(5) NOT NULL,
