@@ -8,4 +8,6 @@ public class BaseResponseData {
      * 0， 正常
      * 非0， 异常*/
     private int code;
+
+    private String detail;
 }
