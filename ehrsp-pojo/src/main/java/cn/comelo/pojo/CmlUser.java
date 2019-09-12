@@ -1,5 +1,7 @@
 package cn.comelo.pojo;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,6 +12,7 @@ public class CmlUser {
     /**
      * 用户id
      */
+    @ApiModelProperty(hidden=true)
     @Id
     private String userid;
 
@@ -26,6 +29,7 @@ public class CmlUser {
     /**
      * 邮箱是否认证，0：没有认证，1：已认证
      */
+    @ApiModelProperty(hidden=true)
     @Column(name = "mail_auth")
     private Integer mailAuth;
 
@@ -42,18 +46,21 @@ public class CmlUser {
     /**
      * 用户最近登录时间
      */
+    @ApiModelProperty(hidden=true)
     @Column(name = "loging_time")
     private Date logingTime;
 
     /**
      * 记录最近更新时间
      */
+    @ApiModelProperty(hidden=true)
     @Column(name = "update_time")
     private Date updateTime;
 
     /**
      * 记录创建时间
      */
+    @ApiModelProperty(hidden=true)
     @Column(name = "create_time")
     private Date createTime;
 

@@ -7,4 +7,7 @@ public interface UserService {
 
     /** 给用户发送的验证码插入到数据库 */
     public CmlUser findUserByTel(String tel);
+
+    /** 用户信息登录 */
+    public void insertUser(CmlUser cmlUser);
 }

@@ -17,4 +17,9 @@ public class UserServiceImpl implements UserService {
         cmlUser.setMobile(tel);
         return cmlUserMapper.selectOne(cmlUser);
     }
+
+    @Override
+    public void insertUser(CmlUser cmlUser) {
+        cmlUserMapper.insert(cmlUser);
+    }
 }

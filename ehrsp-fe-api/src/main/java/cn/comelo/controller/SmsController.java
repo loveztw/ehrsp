@@ -32,7 +32,7 @@ public class SmsController {
     @Autowired
     private SmsVerifyCodeService smsVerifyCodeService;
 
-    @ApiOperation("用户注册")
+    @ApiOperation("发送校验码")
     @ApiImplicitParam(name = "telNumber", value = "用户电话号码", dataType = "String")
     @PostMapping("/send-verify-code")
     public JsonResponse sendVerifyCode(String telNumber) {
