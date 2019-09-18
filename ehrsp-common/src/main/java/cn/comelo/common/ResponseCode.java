@@ -5,6 +5,9 @@ public class ResponseCode {
     /** 共用 */
     public static final int RES_OK = 0x0;
 
+    /** Internal Error */
+    public static final int RES_INTERNAL_ERR = 0x9000;
+
     /** 无效的电话号码 */
     public static final int RES_INVALID_TELNUM = 0x9001;
 
@@ -20,8 +23,14 @@ public class ResponseCode {
     /** Invalid register info */
     public static final int RES_INVALID_REGINFO = 0x9005;
 
+    /** Invalid login info */
+    public static final int RES_INVALID_LOGININFO = 0x9006;
+
     /** Mobile is already registered. */
     public static final int RES_MOBILE_EXIST = 0x9006;
+
+    /** Mobile is not registered. */
+    public static final int RES_MOBILE_NOTEXIST = 0x9006;
 
     /** Send SMS Code */
     /** Send failed */

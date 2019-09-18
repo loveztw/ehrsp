@@ -26,6 +26,11 @@ public class ControllerExceptionHandler {
             responseData.setCode(ResponseCode.RES_DB_ACCESS_ERROR);
             responseData.setDetail("DB access failed.");
             return JsonResponse.errorMap(responseData);
+        } else if (e instanceof  MyException) {
+            logger.error("Internal error.", e);
+            responseData.setCode(ResponseCode.RES_INTERNAL_ERR);
+            responseData.setDetail("Internal error.");
+            return JsonResponse.errorMap(responseData);
         } else {
             logger.error("Unknown exception.", e);
             responseData.setCode(ResponseCode.RES_UNKNOWN_EXCEPTION);

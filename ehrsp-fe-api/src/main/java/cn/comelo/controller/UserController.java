@@ -1,10 +1,13 @@
 package cn.comelo.controller;
 
+import cn.comelo.annotation.PassToken;
 import cn.comelo.common.ResponseCode;
 import cn.comelo.ehrsp.service.SmsVerifyCodeService;
 import cn.comelo.ehrsp.service.UserService;
+import cn.comelo.other.service.TokenService;
 import cn.comelo.pojo.CmlUser;
 import cn.comelo.response.BaseResponseData;
+import cn.comelo.response.UserResponseData;
 import cn.comelo.utils.JsonResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -34,6 +37,9 @@ public class UserController {
     @Autowired
     private SmsVerifyCodeService smsVerifyCodeService;
 
+    @Autowired
+    private TokenService tokenService;
+
     private final String usernamePrefix = "co";
 
     /** 生成User id */
@@ -47,9 +53,9 @@ public class UserController {
     }
 
     @ApiOperation("电话号码注册")
-    @ApiImplicitParam(name = "User", value = "用户注册数据", dataType = "CmlUser")
     @PostMapping("/register-mobile")
-    public JsonResponse sendVerifyCode(String verifyCode, @RequestBody CmlUser cmlUser) {
+    @PassToken
+    public JsonResponse registerMobile(String verifyCode, @RequestBody CmlUser cmlUser) {
 
         if (StringUtils.isEmpty(verifyCode)) {
             BaseResponseData baseResponseData = new BaseResponseData();
@@ -78,8 +84,7 @@ public class UserController {
             return JsonResponse.errorMap(baseResponseData);
         }
 
-        int count = smsVerifyCodeService.isVerifyCodeValid(mobile, verifyCode);
-        if (count == 0) {
+        if (!smsVerifyCodeService.isVerifyCodeValid(mobile, verifyCode)) {
             /* verify code is not valid */
             BaseResponseData baseResponseData = new BaseResponseData();
             baseResponseData.setCode(ResponseCode.RES_INVALID_VERIFYCODE);
@@ -101,6 +106,42 @@ public class UserController {
         userService.insertUser(cmlUser);
 
         return JsonResponse.ok();
+    }
+
+    @ApiOperation("手机验证码登录")
+    @PostMapping("/login-vcode")
+    @PassToken
+    public JsonResponse loginByVerifyCode(String mobile, String verifyCode) {
+
+        if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(verifyCode)) {
+            BaseResponseData baseResponseData = new BaseResponseData();
+            baseResponseData.setCode(ResponseCode.RES_INVALID_LOGININFO);
+            baseResponseData.setDetail("Invalid login information.");
+            return JsonResponse.errorMap(baseResponseData);
+        }
+
+        CmlUser cmlUserDb = userService.findUserByTel(mobile);
+        if (cmlUserDb == null) {
+            BaseResponseData baseResponseData = new BaseResponseData();
+            baseResponseData.setCode(ResponseCode.RES_MOBILE_NOTEXIST);
+            baseResponseData.setDetail("Mobile is not registered.");
+            return JsonResponse.errorMap(baseResponseData);
+        }
+
+        if (!smsVerifyCodeService.isVerifyCodeValid(mobile, verifyCode)) {
+            /* verify code is not valid */
+            BaseResponseData baseResponseData = new BaseResponseData();
+            baseResponseData.setCode(ResponseCode.RES_INVALID_VERIFYCODE);
+            baseResponseData.setDetail("Invalid verify code.");
+            return JsonResponse.errorMap(baseResponseData);
+        }
+
+        //Get Token
+        String token = tokenService.getToken(cmlUserDb);
+        UserResponseData userResponseData = new UserResponseData();
+        userResponseData.setToken(token);
+        userResponseData.setUserName(cmlUserDb.getUsername());
+        return JsonResponse.ok(userResponseData);
     }
 
 }

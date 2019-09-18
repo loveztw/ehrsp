@@ -19,6 +19,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public CmlUser findUserById(String userid) {
+        CmlUser cmlUser = new CmlUser();
+        cmlUser.setUserid(userid);
+        return cmlUserMapper.selectOne(cmlUser);
+    }
+
+    @Override
     public void insertUser(CmlUser cmlUser) {
         cmlUserMapper.insert(cmlUser);
     }

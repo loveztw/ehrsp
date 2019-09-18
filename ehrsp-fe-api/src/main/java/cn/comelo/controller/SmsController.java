@@ -1,5 +1,6 @@
 package cn.comelo.controller;
 
+import cn.comelo.annotation.PassToken;
 import cn.comelo.common.ResponseCode;
 import cn.comelo.ehrsp.service.SmsVerifyCodeService;
 import cn.comelo.ehrsp.service.UserService;
@@ -33,8 +34,8 @@ public class SmsController {
     private SmsVerifyCodeService smsVerifyCodeService;
 
     @ApiOperation("发送校验码")
-    @ApiImplicitParam(name = "telNumber", value = "用户电话号码", dataType = "String")
     @PostMapping("/send-verify-code")
+    @PassToken
     public JsonResponse sendVerifyCode(String telNumber) {
 
         //电话号码格式校验
@@ -46,13 +47,13 @@ public class SmsController {
             return JsonResponse.errorMap(sendSmsResponseData);
         }
 
-        CmlUser cmlUser = userService.findUserByTel(telNumber);
-        if (cmlUser != null) {
-            SendSmsResponseData sendSmsResponseData = new SendSmsResponseData();
-            sendSmsResponseData.setCode(ResponseCode.RES_TELNUM_EXIST);
-            sendSmsResponseData.setDetail("The tel-number has already exist.");
-            return JsonResponse.errorMap(sendSmsResponseData);
-        }
+//        CmlUser cmlUser = userService.findUserByTel(telNumber);
+//        if (cmlUser != null) {
+//            SendSmsResponseData sendSmsResponseData = new SendSmsResponseData();
+//            sendSmsResponseData.setCode(ResponseCode.RES_TELNUM_EXIST);
+//            sendSmsResponseData.setDetail("The tel-number has already exist.");
+//            return JsonResponse.errorMap(sendSmsResponseData);
+//        }
 
         String verifyCode = null;
         try {

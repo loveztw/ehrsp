@@ -26,7 +26,12 @@ public class SmsVerifyCodeServiceImpl implements SmsVerifyCodeService {
     }
 
     @Override
-    public int isVerifyCodeValid(String mobile, String verifyCode) {
-        return cmlSmsVerifyCodeMapper.isVerifyCodeValid(mobile, verifyCode, verifyCodeValidTime);
+    public boolean isVerifyCodeValid(String mobile, String verifyCode) {
+        if( 0 != cmlSmsVerifyCodeMapper.isVerifyCodeValid(mobile, verifyCode, verifyCodeValidTime)) {
+            cmlSmsVerifyCodeMapper.deleteVerifyCodeByMobile(mobile, verifyCode);
+            return true;
+        }
+
+        return false;
     }
 }

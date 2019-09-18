@@ -8,5 +8,5 @@ public interface SmsVerifyCodeService {
     public void insertVerifyCode(CmlSmsVerifyCode cmlSmsVerifyCode);
 
     /** 验证码是否在有效期 */
-    public int isVerifyCodeValid(String mobile, String verifyCode);
+    public boolean isVerifyCodeValid(String mobile, String verifyCode);
 }
