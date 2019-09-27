@@ -27,10 +27,19 @@ public class ResponseCode {
     public static final int RES_INVALID_LOGININFO = 0x9006;
 
     /** Mobile is already registered. */
-    public static final int RES_MOBILE_EXIST = 0x9006;
+    public static final int RES_MOBILE_EXIST = 0x9007;
 
     /** Mobile is not registered. */
-    public static final int RES_MOBILE_NOTEXIST = 0x9006;
+    public static final int RES_MOBILE_NOTEXIST = 0x9008;
+
+    /** Mail is not registered. */
+    public static final int RES_MAIL_NOTEXIST = 0x9009;
+
+    /** Wrong password */
+    public static final int RES_INVALID_PASSWORD = 0x9010;
+
+    /** Mail is already registered. */
+    public static final int RES_MAIL_EXIST = 0x9011;
 
     /** Send SMS Code */
     /** Send failed */

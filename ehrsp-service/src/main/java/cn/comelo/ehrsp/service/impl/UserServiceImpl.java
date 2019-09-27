@@ -26,6 +26,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public CmlUser findUserByMail(String mail) {
+        CmlUser cmlUser = new CmlUser();
+        cmlUser.setMail(mail);
+        return cmlUserMapper.selectOne(cmlUser);
+    }
+
+    @Override
     public void insertUser(CmlUser cmlUser) {
         cmlUserMapper.insert(cmlUser);
     }

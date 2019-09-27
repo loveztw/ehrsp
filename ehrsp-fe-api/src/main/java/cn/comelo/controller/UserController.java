@@ -62,7 +62,7 @@ public class UserController {
         }
 
         String mobile = cmlUser.getMobile();
-        //String mail = cmlUser.getMail();
+        String mail = cmlUser.getMail();
         String password = cmlUser.getPassword();
         String username = cmlUser.getUsername();
 
@@ -79,6 +79,17 @@ public class UserController {
             baseResponseData.setCode(ResponseCode.RES_MOBILE_EXIST);
             baseResponseData.setDetail("Mobile is already registered.");
             return JsonResponse.errorMap(baseResponseData);
+        }
+
+        if (!StringUtils.isEmpty(mail)) {
+            // Check mail exist?
+            CmlUser cmlUserDbTmp = userService.findUserByMail(mail);
+            if (cmlUserDbTmp != null) {
+                BaseResponseData baseResponseData = new BaseResponseData();
+                baseResponseData.setCode(ResponseCode.RES_MAIL_EXIST);
+                baseResponseData.setDetail("Mail is already registered.");
+                return JsonResponse.errorMap(baseResponseData);
+            }
         }
 
         if (!smsVerifyCodeService.isVerifyCodeValid(mobile, verifyCode)) {
@@ -141,4 +152,52 @@ public class UserController {
         return JsonResponse.ok(userResponseData);
     }
 
+    @ApiOperation("手机验证码登录")
+    @PostMapping("/login-pass")
+    @PassToken
+    public JsonResponse loginByPassword(String loginid, String password) {
+        if (StringUtils.isEmpty(loginid) || StringUtils.isEmpty(password)) {
+            BaseResponseData baseResponseData = new BaseResponseData();
+            baseResponseData.setCode(ResponseCode.RES_INVALID_LOGININFO);
+            baseResponseData.setDetail("Invalid login information.");
+            return JsonResponse.errorMap(baseResponseData);
+        }
+
+        CmlUser cmlUserDb = null;
+
+        if (loginid.indexOf("@") != -1) {
+            // Login by mailbox
+            cmlUserDb = userService.findUserByMail(loginid);
+            if (cmlUserDb == null) {
+                BaseResponseData baseResponseData = new BaseResponseData();
+                baseResponseData.setCode(ResponseCode.RES_MAIL_NOTEXIST);
+                baseResponseData.setDetail("Mail is not registered.");
+                return JsonResponse.errorMap(baseResponseData);
+            }
+        } else {
+            // Login by mobile
+            cmlUserDb = userService.findUserByTel(loginid);
+            if (cmlUserDb == null) {
+                BaseResponseData baseResponseData = new BaseResponseData();
+                baseResponseData.setCode(ResponseCode.RES_MOBILE_NOTEXIST);
+                baseResponseData.setDetail("Mobile is not registered.");
+                return JsonResponse.errorMap(baseResponseData);
+            }
+        }
+
+        // Password validate
+        if (!cmlUserDb.getPassword().equals(password)) {
+            BaseResponseData baseResponseData = new BaseResponseData();
+            baseResponseData.setCode(ResponseCode.RES_INVALID_PASSWORD);
+            baseResponseData.setDetail("Wrong password.");
+            return JsonResponse.errorMap(baseResponseData);
+        }
+
+        //Get Token
+        String token = tokenService.getToken(cmlUserDb);
+        UserResponseData userResponseData = new UserResponseData();
+        userResponseData.setToken(token);
+        userResponseData.setUserName(cmlUserDb.getUsername());
+        return JsonResponse.ok(userResponseData);
+    }
 }

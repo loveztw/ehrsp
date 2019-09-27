@@ -11,6 +11,9 @@ public interface UserService {
     /** 根据Userid查询用户信息 */
     public CmlUser findUserById(String userid);
 
+    /** 根据邮箱查询用户信息 */
+    public CmlUser findUserByMail(String mail);
+
     /** 用户信息登录 */
     public void insertUser(CmlUser cmlUser);
 }
